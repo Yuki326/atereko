@@ -1,47 +1,59 @@
 import logo from './logo.svg';
 import './App.css';
+import { useEffect, useRef, useState } from 'react';
 
 function App() {
+  const [timer, setTimer] = useState(180)
+  const isFirsetRender = useRef(false)
+
+  useEffect(()=>{
+    if(!isFirsetRender.current) return;
+
+    setInterval(()=>{
+      setTimer(timer - 1)
+    }, 1000)
+    isFirsetRender.current = true
+  })
+
   return (
     <div className="App">
       <header className="App-header">
         {/*仮のレイアウト*/}
-        <div class = "container">
-          <div class = "header">
-            <div class = "navbar">
-              <div class = "logo">
-                ロゴ
+        <div className = "container">
+          <div className = "header">
+            <div className = "navbar">
+              <div className = "logo">
+                <a href="#">アテレコ</a>
               </div>
-              <div class = "grobal-nav">
-                <ul>
-                  <li class = "search"><a href = "#">検索窓</a></li>
-                  <li class = "login"><a href ="#">ログインa</a></li>
-                  <li class = "prof"><a href = "#">プロフィール</a></li>
-                </ul>
+              <div className = "other">
+                <div className = "sign_up"><a href="#">新規</a></div>
+                <div className = "sign_in"><a href="#">ログイン</a></div>
               </div>
             </div>
           </div>
-          <div class = "main">
-            <div class = "contents">
-              <p>contents<img src={logo} className="App-logo" alt="logo" /></p>
+            <div className = "contents">
+              <div className = "picture1"><img src="kogura.jpg"/></div>
+              <div className = "picture2">画像</div>
+              <div className = "picture3">画像</div>
+              <div className = "picture4">画像</div>
             </div>
-            <div class = "sidebar">
-              <h2>最新の動画</h2>
-              {/*データベースから持ってくる*/}
-              <div class = "section">
-                <div class = "img">サムネ</div>
-                <div class = "desc">説明</div>
-              </div>
-              <div class = "section">
-                <div class = "img">サムネ</div>
-                <div class = "desc">説明</div>
-              </div>
+            <div className = "contents">
+              <div className = "picture1">画像</div>
+              <div className = "picture2">画像</div>
+              <div className = "picture3">画像</div>
+              <div className = "picture4">画像</div>
+            </div>
+            <div className = "buttons">
+              <div className = "upload">アップロード</div>
+              <div className = "game">ゲーム開始</div>
+              <div className = "vote">投票</div>
             </div>
           </div>
-          <div class = "footer">footer</div>
-        </div>
-     </header>
-    </div>
+          <div  className = "footer">残り{timer}秒</div>
+          <button onClick={()=>alert(test)}>てすと</button>
+         
+    </header>
+</div>
   );
 }
 

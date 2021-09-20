@@ -6,63 +6,143 @@ li {
   list-style: none;
 }
 
-
 .container{
   margin:0 auto;
 }
 .header{
-  background-color:steelblue;
+  
+  background-color:rgb(236,164,5);
 }
 .navbar{
+  
   max-width:1140px;
   margin:0 auto;
-  color:white;
+  padding:5px 0;
+  font-size:20px;
   display:flex;
   justify-content: space-between;
+  align-items:center; 
+}
+
+.navbar a{
+  font-family:sans-serif;
+  font-weight: 1000;
+  text-decoration:none;
+  color:#333;
+}
+.other{
+  display:flex;
+}
+.sign_up{
+  flex:1;
+}
+.sign_in{
+  flex:2;
+  margin-left:10px;
+}
+.logo{
+  padding:0 3px;
+}
+.logo:hover{
+  color:white;
+}
+.boke:hover{
+  background-color:#b1ab99;
+}
+.theme:hover{
+  
+  background-color:#b1ab99;
+}
+
+.line{
+  padding-top:4px;
+  background-color:#ffe400;
+}
+
+.contents{
+  background-color:rgb(236,224,200);
+  display:flex;
+}
+.picture1{
+  flex:1;
+  margin:20px;
+  align-items:center;
+  background-color:#333;
+}
+.picture1 img{
+  max-width:100%;
+}
+.picture1 img:active{
+ 
+  height: 0;
+	padding: 0;
+	overflow: hidden;
+  flex:1;
+  margin:105px;
   align-items:center;
 }
-.navbar ul{
+.picture2{
+  flex:1;
+  margin:20px;
+  align-items:center;
+}
+.picture2 img{
+  max-width:100%;
+}
+.picture3{
+  flex:1;
+  margin:20px;
+  align-items:center;
+}
+.picture3 img{
+  max-width:100%;
+}
+.picture4{
+  flex:1;
+  margin:20px;
+  align-items:center;
+}
+.picture4 img{
+  max-width:100%;
+}
+
+.buttons{
+  padding:10px 0;
   display:flex;
-  list-style:none;
+  cursor: pointer;
+  color:#333;
+  font-family:sans-serif;
+  font-weight: 1000;
 }
-.navbar li{
-  margin-left:2rem;
+.upload{
+  flex:1;
+  margin:0 30px;
+  border:2px solid #333;
+  border-radius:24px;
 }
-.navbar a{
-  color:white;
-  text-decoration:none;
+.game{
+  flex:1;
+  margin:0 30px;
+  border:2px solid #333;
+  border-radius:24px;
 }
-.main{
-  display:flex;
-  height:300px;
-}
-.contents{
-  background-color: lightgreen;
-  flex:5;
-}
-.sidebar{
-  background-color:lightblue;
-  flex:2;
-}
-.section{
-  display:flex;
-  padding:5px;
-  margin:2px;
+.vote{
+  flex:1;
+  margin:0 30px;
+  border:2px solid #333;
+  border-radius:24px;
 }
 h2{
   padding-left:3px;
 }
-.img{
-  flex:1;
-  
-  background-color:gray;
-}
-.desc{
-  flex:3;
-}
+
 .footer{
-  background-color:gray;
   height:50px;
+}
+
+.App-logo {
+  height: 40vmin;
+  pointer-events: none;
 }
 
 @media (prefers-reduced-motion: no-preference) {
@@ -72,14 +152,13 @@ h2{
 }
 
 .App-header {
-  background-color: #282c34;
+  background-color:rgb(236,164,5);
   min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
   justify-content: center;
   font-size: calc(10px + 2vmin);
-  color: white;
+  color: #333;
+  font-family:sans-serif;
+  font-weight: 1000;
 }
 
 .App-link {
