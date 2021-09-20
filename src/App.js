@@ -1,56 +1,56 @@
+import { initializeApp } from 'firebase/app'
+import { getAuth, onAuthStateChanged } from 'firebase/auth'
+import { useEffect, useState } from 'react'
+import { getDatabase, ref, onValue } from 'firebase/database'
+
+import { Top } from './components/Top'
+import { Login } from './components/Login'
+import { configs } from './config.json'
 import './App.css';
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <div class = "container">
-          <div class = "header">
-            <div class = "navbar">
-              <div class = "logo">
-                ロゴ
-              </div>
-              <div class = "grobal-nav">
-                <ul>
-                  <li class = "search"><a href = "/#">検索窓</a></li>
-                  <li class = "login"><a href ="/#">ログインa</a></li>
-                  <li class = "prof"><a href = "/#">プロフィール</a></li>
-                </ul>
-              </div>
-            </div>
-          </div>
-          <div class = "main">
-            <div class = "contents">
-              
-            </div>
-            <div class = "sidebar">
-              <h2>最新の動画</h2>
-              <div class = "section">
-                <div class = "img">サムネ</div>
-                <div class = "desc">説明</div>
-              </div>
-              <div class = "section">
-                <div class = "img">サムネ</div>
-                <div class = "desc">説明</div>
-              </div>
-            </div>
-          </div>
-          <div class = "footer">footer</div>
-        </div>
+initializeApp(configs)
 
-        <p>
-          Edit <code>テスト</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+function App() {
+  const auth = getAuth()
+  const db = getDatabase()
+
+  const [isLogin, setIsLogin] = useState(null)
+  const [user, setUser] = useState()
+  const [userImgs, setUserImgs] = useState()
+
+  const requireLogin = () => {
+    return onAuthStateChanged(auth, (fbUser) => {
+      if (fbUser != null) {
+        console.log('authenticated');
+
+        setIsLogin(true)
+        setUser(fbUser);
+        const userImgsRef = ref(db, `users/${fbUser.uid}`);
+        onValue(userImgsRef, (snapshot) => {
+          const data = snapshot.val()
+          setUserImgs(data)
+        })
+
+      } else {
+        setIsLogin(false)
+        console.log('need authenticat!');
+      }
+    });
+  }
+  
+  useEffect(() => {
+    // https://firebase.google.com/docs/reference/android/com/google/firebase/auth/FirebaseAuth.AuthStateListener
+    console.log('Check Auth');
+    const unsubscribe = requireLogin()
+
+    return unsubscribe
+  }, []);
+
+  if (!isLogin) return <Login /> 
+  if (!user) return <div>user not found.</div>
+
+  return (
+    <Top user={user} userImgs={userImgs} />
   );
 }
 
