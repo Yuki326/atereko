@@ -1,4 +1,5 @@
 import { useState } from 'react'
+import { getAuth, signInWithEmailAndPassword } from 'firebase/auth'
 
 const initialFormValue = {
   mail: "",
@@ -7,9 +8,26 @@ const initialFormValue = {
 
 export const Login = () => {
   const [formValue, setFormValue] = useState(initialFormValue)
+  const [isLoading, setIsLoading] = useState(false)
+  const [error, setError] = useState()
 
-  const handleSubmit = () => {
-    console.log('formValue', formValue)
+  const handleSubmit = async () => {
+    const auth = getAuth()
+    const { mail, password } = formValue 
+
+    try {
+      setIsLoading(true)
+      const userCredential = await signInWithEmailAndPassword(auth, mail, password)
+      console.log('login success', userCredential)
+      // setIsLoading(false)
+
+    } catch (error) {
+      setIsLoading(false)
+      setError(error)
+      console.log('login error', error)
+
+    }
+
   }
 
   const handleChangeValue = event => {
@@ -21,6 +39,9 @@ export const Login = () => {
     }))
     
   }
+
+  if (isLoading) return <div>Now Loading...</div>
+  if (error) return <div>Error Happened.</div>
 
   return (
     <>

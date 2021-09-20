@@ -10,7 +10,12 @@ import './App.css';
 
 initializeApp(configs)
 
-function App() {
+const formatImgs = (imgs) => {
+  const formatedImgs = Object.keys(imgs).map(key => imgs[key])
+  return formatedImgs
+}
+
+const App = () => {
   const auth = getAuth()
   const db = getDatabase()
 
@@ -28,12 +33,12 @@ function App() {
         const userImgsRef = ref(db, `users/${fbUser.uid}`);
         onValue(userImgsRef, (snapshot) => {
           const data = snapshot.val()
-          setUserImgs(data)
+          setUserImgs(formatImgs(data))
         })
 
       } else {
         setIsLogin(false)
-        console.log('need authenticat!');
+        console.log('need authenticate!');
       }
     });
   }
