@@ -15,7 +15,7 @@ function App() {
               <div class = "grobal-nav">
                 <ul>
                   <li class = "search"><a href = "#">検索窓</a></li>
-                  <li class = "login"><a href ="#">ログイン</a></li>
+                  <li class = "login"><a href ="#">ログインa</a></li>
                   <li class = "prof"><a href = "#">プロフィール</a></li>
                 </ul>
               </div>
