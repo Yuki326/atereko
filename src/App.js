@@ -19,7 +19,7 @@ const App = () => {
   const auth = getAuth()
   const db = getDatabase()
 
-  const [isLogin, setIsLogin] = useState(null)
+  const [isLogin, setIsLogin] = useState(1)
   const [user, setUser] = useState()
   const [userImgs, setUserImgs] = useState()
 
@@ -49,8 +49,10 @@ const App = () => {
     const unsubscribe = requireLogin()
 
     return unsubscribe
+    // eslint-disable-next-line 
   }, []);
 
+  if (isLogin === 1) return <div>ログイン情報を確認中...</div>
   if (!isLogin) return <Login /> 
   if (!user) return <div>user not found.</div>
 
