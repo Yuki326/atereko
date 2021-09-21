@@ -6,12 +6,16 @@ const initialFormValue = {
   password: ""
 }
 
-export const Login = () => {
+export const Login = ({ setRoute }) => {
   const [formValue, setFormValue] = useState(initialFormValue)
   const [isLoading, setIsLoading] = useState(false)
   const [error, setError] = useState()
 
-  const handleSubmit = async () => {
+  const handleGoTop = () => {
+    setRoute('entry')
+  }
+
+  const handleLogin = async () => {
     const auth = getAuth()
     const { mail, password } = formValue 
 
@@ -20,6 +24,7 @@ export const Login = () => {
       const userCredential = await signInWithEmailAndPassword(auth, mail, password)
       console.log('login success', userCredential)
       // setIsLoading(false)
+      setRoute('top')
 
     } catch (error) {
       setIsLoading(false)
@@ -63,7 +68,8 @@ export const Login = () => {
           onChange={handleChangeValue}
         />
       </label>
-      <button onClick={handleSubmit}>ログインする</button>
+      <button onClick={handleLogin}>ログインする</button>
+      <button onClick={handleGoTop}>ホームに戻る</button>
     </>
   )
 }
