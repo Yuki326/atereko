@@ -66,6 +66,7 @@ export const CreateAccount = ({ setRoute }) => {
       </div>
       <button onClick={() => handleSetAccounts()}>アカウントを生成する</button>
       {accounts && accounts.map(ac => <div key={ac}>{ac}</div>)}
+      {accounts && <button onClick={() => setRoute('entry')}>ホームに戻る</button>}
     </>
   )
 }

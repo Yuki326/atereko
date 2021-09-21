@@ -26,7 +26,7 @@ export const Entry = ({ setRoute }) => {
     if(accounts.length <= 0) {
       return
     }
-    const nextAccounts = accounts.filter((ac, i) => i !== randomId)
+    const nextAccounts = accounts.filter((_, i) => i !== randomId)
     console.log('next accounts', nextAccounts)
     accounts.splice(randomId, 1)
     
@@ -41,7 +41,7 @@ export const Entry = ({ setRoute }) => {
 
   return (
     <>
-      <button onClick={() => setRoute('top')}>クイズをする</button>
+      <button onClick={() => setRoute('top')}>ゲーム開始</button>
       {!accounts && <button onClick={() => setRoute('createAccount')}>アカウントを生成する</button>}
       {accounts && 
        <> 
