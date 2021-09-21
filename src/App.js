@@ -3,9 +3,7 @@ import { useState } from 'react'
 
 import { Entry } from './components/Entry'
 import { Top } from './components/Top'
-import { Login } from './components/Login'
-import { CreateAccount } from './components/CreateAccount'
-import { SelectAccount } from './components/SelectAccount'
+import { CreateMockAccount } from './components/CreateMockAccount'
 import { 
   apiKey, 
   authDomain, 
@@ -32,24 +30,19 @@ initializeApp(firebaseConfig)
 
 const App = () => {
   const [route, setRoute] = useState('entry')
+  const [accounts, setAccounts] = useState(null)
   let routePage = null
 
 
   switch (route) {
     case 'entry':
-      routePage = <Entry setRoute={setRoute} />
+      routePage = <Entry setAccounts={setAccounts} setRoute={setRoute} />
       break
     case 'top':
-      routePage = <Top setRoute={setRoute} />
+      routePage = <Top acts={accounts} setRoute={setRoute} />
       break
-    case 'login':
-      routePage = <Login setRoute={setRoute} />
-      break
-    case 'createAccount':
-      routePage = <CreateAccount setRoute={setRoute} />
-      break
-    case 'selectAccount':
-      routePage = <SelectAccount />
+    case 'createMockAccount':
+      routePage = <CreateMockAccount />
       break
     default:
       return <div>Loading...</div>

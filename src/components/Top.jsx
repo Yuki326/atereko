@@ -1,79 +1,91 @@
 import { useEffect, useState } from 'react'
-import { getAuth, onAuthStateChanged, signOut } from 'firebase/auth'
+import { getAuth, signInWithEmailAndPassword, signOut } from 'firebase/auth'
 import { getDatabase, ref, onValue } from 'firebase/database'
 
 const formatImgs = (imgs) => {
+  if (!imgs) return []
+
   const formatedImgs = Object.keys(imgs).map(key => imgs[key])
   return formatedImgs
 }
 
-export const Top = ({ setRoute }) => {
+/*
+ランダムにアカウントを選ぶ
+そのアカウントでログインする
+アカウントの画像取得
+*/
+
+const createPassword = (account) => {
+  const words = account.split('@') 
+  console.log(`${words[0]}${words[0]}`)
+  return `${words[0]}${words[0]}`
+}
+
+export const Top = ({ acts, setRoute }) => {
   const auth = getAuth()
   const db = getDatabase()
-  const [isLoading, setIsLoading] = useState(false)
-  const [error, setError] = useState()
-  const [isLoadingCertification, setIsLoadingCertification] = useState(true)
-  const [userImgs, setUserImgs] = useState()
 
-  const handleLogout = async () => {
-  
+  const [accounts, setAccounts] = useState(acts)
+  const [currentAccount, setCurrentAccount] = useState()
+  const [loginError, setLoginError] = useState(null)
+  const [isLoadingLogin, setIsLoadingLogin] = useState(false)
+  const [uid, setUid] = useState()
+  const [imgs, setImgs] = useState(null)
+  // console.log('accounts', accounts)
+
+  const chooseAccount = () => {
+    if (accounts.length <= 0) {
+      alert('全てのアカウントが選ばれました')
+      return
+    }
+    const randomId = Math.floor(Math.random() * accounts.length)
+    setCurrentAccount(accounts[randomId])
+
+    const nextAccounts = accounts.filter((_, i) => i !== randomId)
+    setAccounts(nextAccounts)
+  }
+
+  const login = async () => {
     try {
-      setIsLoading(true)
-      await signOut(auth)
-      setIsLoading(false)
+      setIsLoadingLogin(true)
+      const userCredential = await signInWithEmailAndPassword(auth, currentAccount, createPassword(currentAccount))
+      setUid(userCredential.user.uid)
+      setIsLoadingLogin(false)
+
     } catch (error) {
-      setIsLoading(false)
-      setError(error)
-       
+      console.log('loginError', error)
+      setLoginError(error)
     }
   }
 
-  const requireLogin = () => {
-    return onAuthStateChanged(auth, (fbUser) => {
-      if (fbUser != null) {
-        console.log('authenticated');
-
-        setIsLoadingCertification(false)
-        const userImgsRef = ref(db, `users/${fbUser.uid}`);
-        onValue(userImgsRef, (snapshot) => {
-          const data = snapshot.val()
-          setUserImgs(formatImgs(data))
-        })
-
-      } else {
-        setIsLoadingCertification(false)
-        setRoute('login')
-        console.log('need authenticate!');
-      }
-    });
-  }
-  
   useEffect(() => {
-    // https://firebase.google.com/docs/reference/android/com/google/firebase/auth/FirebaseAuth.AuthStateListener
-    console.log('Check Auth');
-    const unsubscribe = requireLogin()
+    console.log('current account', currentAccount)
+    if (currentAccount) {
+      // firebaseでログインする
+      login()
+    }
+  }, [currentAccount])
 
-    return unsubscribe
-    // eslint-disable-next-line 
-  }, []);
+  useEffect(() => {
+    if (uid) {
+      const userImgsRef = ref(db, `users/${uid}`);
+      onValue(userImgsRef, (snapshot) => {
+          const data = snapshot.val()
+          setImgs(formatImgs(data))
+        })
+    }
+  }, [uid])
 
-  if (isLoadingCertification) return <div>ログイン情報を確認中...</div>
+  if (loginError) return <div>Login Error Happened.</div>
 
-
-  if (isLoading) return <div>Now Loading...</div>
-  if (error) return <div>Error Happened.</div>
 
   return (
     <>
-      <div>this is top page</div>
-      <button onClick={handleLogout}>ログアウトする</button>
-      {userImgs ?
-        userImgs.map(ref => (
-          <div key={ref.url}><img alt="夏休み中の画像" src={ref.url} height="200" width="200" /></div>
-        ))
-        :
-        <div>Imgs Loading...</div>
-      }
+     <div>{`現在のアカウント: ${currentAccount ? currentAccount : "選択されていません"}`}</div>
+     <button onClick={chooseAccount}>抽選</button>
+     {!currentAccount ? null : isLoadingLogin ? <div>Now Login...</div> : <div>Login Success.</div>}
+     {imgs && imgs.length > 0 ? imgs.map(ref => <div key={ref.url}><img alt="夏休み中の画像" src={ref.url} height="200" width="200" /></div>) : null}
     </>
   )
+
 }
