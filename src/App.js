@@ -14,7 +14,21 @@ function App() {
     }, 1000)
     isFirsetRender.current = true
   })
-
+  const buttonAlert = () => {
+    const style = document.createElement('style')
+    
+    style.innerHTML = `
+      .picture1 img {
+        height: 0;
+	      padding: 0;
+	      overflow: hidden;
+        flex:1;
+        margin:105px;
+        align-items:center;
+      }
+    `
+    document.body.appendChild(style)
+  }
   return (
     <div className="App">
       <header className="App-header">
@@ -32,25 +46,24 @@ function App() {
             </div>
           </div>
             <div className = "contents">
-              <div className = "picture1"><img src="kogura.jpg"/></div>
-              <div className = "picture2">画像</div>
-              <div className = "picture3">画像</div>
-              <div className = "picture4">画像</div>
+              <div className = "picture1" ><img src="kogura.jpg"/></div>
+              <div className = "picture2"><img src="logo.png"/></div>
+              <div className = "picture3"><img src="logo192.png"/></div>
+              <div className = "picture4"><img src="kogura.jpg"/></div>
             </div>
             <div className = "contents">
-              <div className = "picture1">画像</div>
-              <div className = "picture2">画像</div>
-              <div className = "picture3">画像</div>
-              <div className = "picture4">画像</div>
+              <div className = "picture1"><img src="kogura.jpg"/></div>
+              <div className = "picture2"><img src="kogura.jpg"/></div>
+              <div className = "picture3"><img src="kogura.jpg"/></div>
+              <div className = "picture4"><img src="kogura.jpg"/></div>
             </div>
             <div className = "buttons">
               <div className = "upload">アップロード</div>
-              <div className = "game">ゲーム開始</div>
+              <button onClick={buttonAlert} className = "game">ゲーム開始</button>
               <div className = "vote">投票</div>
             </div>
           </div>
           <div  className = "footer">残り{timer}秒</div>
-          <button onClick={()=>alert(test)}>てすと</button>
          
     </header>
 </div>

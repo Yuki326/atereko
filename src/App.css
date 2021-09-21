@@ -14,7 +14,7 @@ li {
   background-color:rgb(236,164,5);
 }
 .navbar{
-  
+ 
   max-width:1140px;
   margin:0 auto;
   padding:5px 0;
@@ -27,6 +27,7 @@ li {
 .navbar a{
   font-family:sans-serif;
   font-weight: 1000;
+  font-size:1.5em;
   text-decoration:none;
   color:#333;
 }
@@ -35,10 +36,22 @@ li {
 }
 .sign_up{
   flex:1;
+  padding :0 20px;
+  border:2px solid #333;
+  border-radius:8px;
+}
+.sign_up:hover{
+  background-color:rgb(236,224,200);
 }
 .sign_in{
   flex:2;
+  padding:0 20px;
   margin-left:10px;
+  border:2px solid #333;
+  border-radius:8px;
+}
+.sign_in:hover{
+  background-color:rgb(236,224,200);
 }
 .logo{
   padding:0 3px;
@@ -107,36 +120,61 @@ li {
 }
 
 .buttons{
-  padding:10px 0;
   display:flex;
+}
+.upload{
+  flex:1;
+  margin:30px;
+  border:2px solid #333;
+  border-radius:24px;
+  font-size:1.5em;
+  padding:10px 0;
   cursor: pointer;
   color:#333;
   font-family:sans-serif;
   font-weight: 1000;
 }
-.upload{
-  flex:1;
-  margin:0 30px;
-  border:2px solid #333;
-  border-radius:24px;
+.upload:hover{
+  background-color:rgb(236,224,200);
 }
 .game{
   flex:1;
-  margin:0 30px;
+  margin:30px;
   border:2px solid #333;
   border-radius:24px;
+  font-size:1.5em;
+  padding:10px 0;
+  cursor: pointer;
+  color:#333;
+  font-family:sans-serif;
+  font-weight: 1000;
+}
+.game:hover{
+  background-color:rgb(236,224,200);
 }
 .vote{
   flex:1;
-  margin:0 30px;
+  margin:30px;
   border:2px solid #333;
   border-radius:24px;
+  font-size:1.5em;
+  padding:10px 0;
+  cursor: pointer;
+  color:#333;
+  font-family:sans-serif;
+  font-weight: 1000;
+}
+.vote:hover{
+  background-color:rgb(236,224,200);
 }
 h2{
   padding-left:3px;
 }
 
 .footer{
+  font-family:sans-serif;
+  font-weight: 1000;
+  font-size:1.5em;
   height:50px;
 }
 
@@ -165,11 +203,35 @@ h2{
   color: #61dafb;
 }
 
+.test{
+  background-color:gray;
+}
+.test:after{
+  animation:App-logo-spin;
+}
+.test:hover:after{
+  animation-name:App-logo-spin;
+
+}
 @keyframes App-logo-spin {
   from {
-    transform: rotate(0deg);
+    transform: scaleY(1);     
   }
   to {
-    transform: rotate(180deg);
+    transform: scaleY(0);
   }
+}
+button {
+  flex:1;
+  margin:0 30px;
+  border:2px solid #333;
+  border-radius:24px;
+  background-color:rgb(236,164,5);
+  
+}
+.primary {
+  background-color: blue;
+}
+.secondary {
+  background-color: red;
 }
