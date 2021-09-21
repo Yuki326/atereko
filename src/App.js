@@ -5,6 +5,7 @@ import { Entry } from './components/Entry'
 import { Top } from './components/Top'
 import { Login } from './components/Login'
 import { CreateAccount } from './components/CreateAccount'
+import { SelectAccount } from './components/SelectAccount'
 import { 
   apiKey, 
   authDomain, 
@@ -45,7 +46,10 @@ const App = () => {
       routePage = <Login setRoute={setRoute} />
       break
     case 'createAccount':
-      routePage = <CreateAccount />
+      routePage = <CreateAccount setRoute={setRoute} />
+      break
+    case 'selectAccount':
+      routePage = <SelectAccount />
       break
     default:
       return <div>Loading...</div>

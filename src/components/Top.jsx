@@ -8,15 +8,14 @@ const formatImgs = (imgs) => {
 }
 
 export const Top = ({ setRoute }) => {
-  const [isLoading, setIsLoading] = useState(false)
-  const [error, setError] = useState()
-  
   const auth = getAuth()
   const db = getDatabase()
+  const [isLoading, setIsLoading] = useState(false)
+  const [error, setError] = useState()
   const [isLoadingCertification, setIsLoadingCertification] = useState(true)
   const [userImgs, setUserImgs] = useState()
 
-  const handleClick = async () => {
+  const handleLogout = async () => {
   
     try {
       setIsLoading(true)
@@ -27,11 +26,6 @@ export const Top = ({ setRoute }) => {
       setError(error)
        
     }
-  }
-
-  const handleGoCreateAccount = () => {
-    console.log('click')
-    setRoute('createAccount')
   }
 
   const requireLogin = () => {
@@ -45,7 +39,6 @@ export const Top = ({ setRoute }) => {
           const data = snapshot.val()
           setUserImgs(formatImgs(data))
         })
-        setRoute('top')
 
       } else {
         setIsLoadingCertification(false)
@@ -73,8 +66,7 @@ export const Top = ({ setRoute }) => {
   return (
     <>
       <div>this is top page</div>
-      <button onClick={handleClick}>ログアウトする</button>
-      <button onClick={handleGoCreateAccount}>ゲームで使うアカウントを作る</button>
+      <button onClick={handleLogout}>ログアウトする</button>
       {userImgs ?
         userImgs.map(ref => (
           <div key={ref.url}><img alt="夏休み中の画像" src={ref.url} height="200" width="200" /></div>

@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 
 const createRandomString = () => {
   let l = 8;
@@ -14,21 +14,48 @@ const createRandomString = () => {
 }
 
 
-const createAccount = (n) => {
-  const accounts = []
+const createAccounts = (n) => {
+  const mails = []
 
   for (let i=0; i<n; i++) {
-    const randomString = createRandomString()
-    const account = `${randomString}@${randomString}.com`
-    accounts.push(account)
+    const account = `${createRandomString()}@${createRandomString()}.com`
+    mails.push(account)
   }
 
-  console.log('accounts', accounts)
+  return mails 
 }
 
-export const CreateAccount = () => {
-  const [count, setCount] = useState(0)
 
+export const CreateAccount = ({ setRoute }) => {
+  const [count, setCount] = useState(0)
+  const [accounts, setAccounts] = useState(null)
+
+  const handleSetAccounts = () => {
+    if (count <= 0) {
+      alert('アカウントは追加できません。\n 0個以上のアカウントを追加してください')
+      return
+    }
+
+    setAccounts(createAccounts(count))
+    console.log('accounts', accounts)
+  }
+
+  useEffect(() => {
+    const prevAccounts = localStorage.getItem('atereko')
+    console.log('preview accounts', prevAccounts)
+
+    // check initial render & is exsit previe accounts
+    if (!accounts && prevAccounts && prevAccounts.length > 0) {
+      console.log('exist preview accounts, set accounts to local state')
+      setAccounts(JSON.parse(prevAccounts))
+      return
+    }
+
+    if (accounts) {
+      console.log('set accounts')
+      localStorage.setItem('atereko', JSON.stringify(accounts))
+    }
+  }, [accounts])
 
   return (
     <>
@@ -37,7 +64,8 @@ export const CreateAccount = () => {
         <button onClick={() => setCount(prev => prev + 1)}>+</button>
         <button onClick={() => setCount(prev => prev - 1)}>-</button>
       </div>
-      <button onClick={() => createAccount(count)}>アカウントを生成する</button>
+      <button onClick={() => handleSetAccounts()}>アカウントを生成する</button>
+      {accounts && accounts.map(ac => <div key={ac}>{ac}</div>)}
     </>
   )
 }

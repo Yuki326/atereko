@@ -11,7 +11,11 @@ export const Login = ({ setRoute }) => {
   const [isLoading, setIsLoading] = useState(false)
   const [error, setError] = useState()
 
-  const handleSubmit = async () => {
+  const handleGoTop = () => {
+    setRoute('entry')
+  }
+
+  const handleLogin = async () => {
     const auth = getAuth()
     const { mail, password } = formValue 
 
@@ -64,7 +68,8 @@ export const Login = ({ setRoute }) => {
           onChange={handleChangeValue}
         />
       </label>
-      <button onClick={handleSubmit}>ログインする</button>
+      <button onClick={handleLogin}>ログインする</button>
+      <button onClick={handleGoTop}>ホームに戻る</button>
     </>
   )
 }
