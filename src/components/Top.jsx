@@ -2,7 +2,7 @@
 import { useEffect, useState } from 'react'
 import { getAuth, signInWithEmailAndPassword } from 'firebase/auth'
 import { getDatabase, ref, onValue } from 'firebase/database'
-
+import './top.css'
 const formatImgs = (imgs) => {
   if (!imgs) return []
 
@@ -123,17 +123,31 @@ export const Top = ({ acts, setRoute }) => {
 
   if (loginError) return <div>Login Error Happened.</div>
   if (isLoadingGetImgs) return <div>Now Get Images...</div>
-  if (isLoadingLogin) return <div>Now Login...</div>
+  if (isLoadingLogin) return <span class="loader"><span class="loader-inner"></span></span>
+
 
   return (
     <>
-     <div>{`現在のアカウント: ${currentAccount ? currentAccount : "選択されていません"}`}</div>
-     <button onClick={chooseAccount}>抽選</button>
-     {/* {isLoadingLogin ? <div>Now Login...</div> : isLoadingGetImgs ? <div>Now Get Images...</div> : null} */}
-     {hintImgs && hintImgs.length > 0 ? hintImgs.map(ref => <div key={ref.url}><img alt="夏休み中の画像" src={ref.url} height="200" width="200" /></div>) : null}
-     {!isHintFull && <button onClick={handleHint}>ヒント</button>}
-     {!isHintFull && <button onClick={handleShowAll}>すべて</button>}
-     {isHintFull && <button onClick={clearHint}>クリア</button>}
+      <div className="wrapper">
+        <div className="header-top">
+          <h1 className="title">アテレコ！</h1>
+          <div className="account"><span className="marker">{`現在のアカウント: ${currentAccount ? currentAccount : "選択されていません"}`}</span></div>
+        </div>
+        <main>
+          <div className="pictures">
+            {/* {isLoadingLogin ? <div>Now Login...</div> : isLoadingGetImgs ? <div>Now Get Images...</div> : null} */}
+            {hintImgs && hintImgs.length > 0 ? hintImgs.map(ref => <div className="picture" key={ref.url}><img alt="夏休み中の画像" src={ref.url} height="200" width="200" /></div>) : null}
+          </div>
+        </main>
+        <footer>
+          <div className="buttons">
+            {!isHintFull && <button className="button" onClick={handleHint}>ヒント</button>}
+            <button className="button" onClick={chooseAccount}>抽選</button>
+            {!isHintFull && <button className="button"onClick={handleShowAll}>すべて</button>}
+            {isHintFull && <button className="button" onClick={clearHint}>クリア</button>}
+          </div>
+        </footer>
+      </div>
     </>
   )
 
