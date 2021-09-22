@@ -138,7 +138,13 @@ export const Top = ({ acts, setRoute }) => {
         <main>
           <div className="pictures">
             {/* {isLoadingLogin ? <div>Now Login...</div> : isLoadingGetImgs ? <div>Now Get Images...</div> : null} */}
-            {hintImgs && hintImgs.length > 0 ? hintImgs.map(ref => <div className="picture" key={ref.url}><img alt="夏休み中の画像" src={ref.url} height="200" width="200" /></div>) : null}
+            {hintImgs && hintImgs.length > 0 ? hintImgs.map((ref, i) => 
+              <div className="picture" key={ref.url}>
+                <h2>No.{i + 1}</h2>
+                <img alt="夏休み中の画像" src={ref.url} height="200" width="200" />
+              </div>) 
+              : null
+            }
           </div>
         </main>
         <footer>
