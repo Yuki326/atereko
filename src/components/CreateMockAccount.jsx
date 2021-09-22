@@ -32,7 +32,7 @@ export const CreateMockAccount = () => {
         <h1>作成するアカウント数の設定</h1>
         <h1 className="count">{`${count}`}</h1>
         <button className="setting-button"onClick={() => setCount(prev => prev + 1)}><span className="icon">+</span></button>
-        <button className="setting-button"onClick={() => setCount(prev =>   prev - 1)}><span className="icon">-</span></button>
+        <button className="setting-button"onClick={() => setCount(prev =>  prev ? prev - 1:0)}><span className="icon">-</span></button>
         <div>
           <button className="submit-button"onClick={() => handleCreateAccounts()}>アカウントを生成する</button>
         </div>

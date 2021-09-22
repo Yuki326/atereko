@@ -142,9 +142,10 @@ export const Top = ({ acts, setRoute }) => {
         <footer>
           <div className="buttons">
             {!isHintFull && <button className="button" onClick={handleHint}>ヒント</button>}
-            <button className="button" onClick={chooseAccount}>抽選</button>
             {!isHintFull && <button className="button"onClick={handleShowAll}>すべて</button>}
+            <button className="button" onClick={chooseAccount}>抽選</button>
             {isHintFull && <button className="button" onClick={clearHint}>クリア</button>}
+            
           </div>
         </footer>
       </div>
