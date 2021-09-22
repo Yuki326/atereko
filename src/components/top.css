@@ -7,6 +7,7 @@
   position:fixed;
   width:100vw;
   height:10vh;
+  padding-bottom:10%;
 }
 .title{
   padding:0 0 0 20px;
@@ -43,7 +44,7 @@ main{
 .buttons{
   background-color:rgb(234,164,5);
   display:flex;
-  padding:20px;
+  padding:1rem;
 }
 
 .button{
@@ -52,8 +53,8 @@ main{
   border:2px solid #333;
   border-radius:24px;
   background-color:rgb(236,164,5); 
-  font-size:1.5em;
-  padding:10px 0;
+  font-size:1.3em;
+  padding:1rem 0;
   cursor: pointer;
   color:#333;
   font-family:sans-serif;
@@ -79,6 +80,7 @@ footer{
   height:10vh;
   position:fixed;
   bottom:0;
+  margin-bottom:2.5rem;
 }
 .loader {
 display: inline-block;
