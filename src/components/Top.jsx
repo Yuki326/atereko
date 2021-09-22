@@ -36,7 +36,7 @@ export const Top = ({ acts, setRoute }) => {
   // console.log('accounts', accounts)
 
   const handleHint = () => {
-    if (imgs) {
+    if (imgs && currentAccount) {
       const nextHintCount = hintCount + 1
       if (nextHintCount === imgs.length) {
         setIsHintFull(true)
@@ -46,8 +46,10 @@ export const Top = ({ acts, setRoute }) => {
   }
   
   const handleShowAll = () => {
-    setHintImgs(imgs)
-    setIsHintFull(true)
+    if(currentAccount){
+      setHintImgs(imgs)
+      setIsHintFull(true)
+    }
   }
 
   const clearHint = () => {
