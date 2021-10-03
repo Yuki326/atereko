@@ -1,4 +1,5 @@
 import { useState } from 'react'
+import './createMockAccount.css'
 
 const mockAccounts = [
   "test@test.com", 
@@ -26,15 +27,22 @@ export const CreateMockAccount = () => {
   }
 
   return (
-    <div>
-      this is create mock account page
-      <div>{`アカウント数: ${count}`}</div>
-      <button onClick={() => setCount(prev => prev + 1)}>+</button>
-      <button onClick={() => setCount(prev =>   prev - 1)}>-</button>
-      <div>
-        <button onClick={() => handleCreateAccounts()}>アカウントを生成する</button>
+    <div className="back">
+      <div className="box">
+        <h1>作成するアカウント数の設定</h1>
+        <h1 className="count">{`${count}`}</h1>
+        <button className="setting-button"onClick={() => setCount(prev => prev + 1)}><span className="icon">+</span></button>
+        <button className="setting-button"onClick={() => setCount(prev =>  prev ? prev - 1:0)}><span className="icon">-</span></button>
+        <div>
+          <button className="submit-button"onClick={() => handleCreateAccounts()}>アカウントを生成する</button>
+        </div>
+        <div class="box28">
+          <div　className="list-desc">アカウント一覧</div>
+            <div className="list">
+            {accounts && accounts.map(ac => <div key={ac}>{ac}</div>)}
+            </div>
+          </div>
       </div>
-      {accounts && accounts.map(ac => <div key={ac}>{ac}</div>)}
     </div>
   )
 }
